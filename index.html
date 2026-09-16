@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Playr — Encuentra con quién jugar fútbol</title>
-<meta name="description" content="Playr es la app para encontrar con quién jugar fútbol en tu ciudad: arma partidos, equipos, torneos y reserva canchas. Muy pronto en iOS y Android." />
+<title>PlayR — Encuentra con quién jugar, o haz crecer tu cancha</title>
+<meta name="description" content="PlayR conecta jugadores de fútbol para armar partidos, equipos y torneos — y le da a cada cancha su propia vitrina digital: reservas, agenda y nuevos clientes. Muy pronto en iOS y Android." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --primary: #004D95;
@@ -28,13 +28,15 @@
     color: var(--text);
     background: var(--bg);
   }
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { text-wrap: balance; }
+  section { scroll-margin-top: 24px; }
 
   /* Hero */
   .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 55%, var(--secondary) 130%);
     color: #fff;
-    padding: 56px 0 96px;
+    padding: 56px 0 72px;
     position: relative;
     overflow: hidden;
   }
@@ -47,88 +49,195 @@
   .hero::before { width: 420px; height: 420px; top: -180px; right: -120px; }
   .hero::after { width: 300px; height: 300px; bottom: -160px; left: -80px; }
   .hero-inner { position: relative; z-index: 1; text-align: center; }
-  .logo { max-width: 200px; height: auto; margin-bottom: 28px; }
+  .logo { max-width: 190px; height: auto; margin-bottom: 24px; }
   .hero h1 {
-    font-size: clamp(28px, 5vw, 44px);
+    font-size: clamp(28px, 5vw, 46px);
     font-weight: 800;
-    line-height: 1.15;
+    line-height: 1.16;
     margin: 0 0 16px;
-    text-wrap: balance;
   }
+  .hero h1 .accent { color: #FFD966; }
   .hero p.lead {
     font-size: clamp(15px, 2.4vw, 18px);
-    color: rgba(255,255,255,0.88);
-    max-width: 560px;
-    margin: 0 auto 32px;
-    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
   }
-  .badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  /* Store badges */
+  .badges { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
   .badge {
     display: flex; align-items: center; gap: 10px;
-    background: rgba(255,255,255,0.12);
-    border: 1.5px solid rgba(255,255,255,0.35);
+    background: #fff;
+    border: 1.5px solid rgba(255,255,255,0.5);
     border-radius: 12px;
-    padding: 10px 18px;
-    font-size: 13px;
+    padding: 11px 20px;
+    font-size: 15px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text);
   }
-  .badge svg { width: 20px; height: 20px; flex-shrink: 0; }
-  .badge .sub { display: block; font-weight: 500; font-size: 11px; opacity: 0.8; }
-
-  /* Features */
-  .features { padding: 72px 0; }
-  .features h2 {
+  .badge svg { width: 22px; height: 22px; flex-shrink: 0; }
+  .gp-icon {
+    width: 20px; height: 20px; flex-shrink: 0;
+    clip-path: polygon(0 0, 0 100%, 100% 50%);
+    background: conic-gradient(from 0deg at 12% 50%,
+      #34A853 0deg 70deg,
+      #FBBC05 70deg 150deg,
+      #EA4335 150deg 230deg,
+      #4285F4 230deg 360deg);
+  }
+  .coming-soon-tag {
     text-align: center;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
+  }
+
+  /* Audience picker */
+  .audience-picker {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    max-width: 640px;
+    margin: 40px auto 0;
+  }
+  .audience-card {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.28);
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    transition: background 0.15s ease;
+  }
+  .audience-card:hover { background: rgba(255,255,255,0.18); }
+  .audience-card .emoji-icon { font-size: 26px; display: block; margin-bottom: 6px; }
+  .audience-card strong { display: block; font-size: 15px; margin-bottom: 2px; }
+  .audience-card span { font-size: 12.5px; color: rgba(255,255,255,0.75); }
+
+  /* Section headers */
+  .section-head { text-align: center; max-width: 620px; margin: 0 auto 48px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .eyebrow.light { background: rgba(0,77,149,0.1); color: var(--primary); }
+  .eyebrow.dark { background: rgba(255,255,255,0.12); color: #FFD966; }
+  .section-head h2 {
     font-size: clamp(22px, 3.4vw, 30px);
     font-weight: 800;
     margin: 0 0 12px;
-    color: var(--primary-dark);
   }
-  .features p.sub {
-    text-align: center;
+  .section-head p {
     color: var(--text-secondary);
-    max-width: 480px;
-    margin: 0 auto 48px;
     line-height: 1.6;
+    margin: 0;
   }
+
+  /* Feature grid (icon chips) */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
+    margin-bottom: 72px;
   }
   .feature-card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 28px 22px;
+    padding: 24px 20px;
   }
   .feature-icon {
-    width: 48px; height: 48px;
+    width: 46px; height: 46px;
     border-radius: 12px;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     display: flex; align-items: center; justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
-  .feature-icon svg { width: 24px; height: 24px; color: #fff; }
-  .feature-card h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px; color: var(--text); }
-  .feature-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.55; margin: 0; }
+  .feature-icon svg { width: 22px; height: 22px; color: #fff; }
+  .feature-card h3 { font-size: 15.5px; font-weight: 700; margin: 0 0 6px; color: var(--text); }
+  .feature-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; margin: 0; }
+
+  /* Dark variant feature card (venue section) */
+  .venues-section .feature-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+  }
+  .venues-section .feature-icon { background: linear-gradient(135deg, #FFD966, var(--secondary)); }
+  .venues-section .feature-card h3 { color: #fff; }
+  .venues-section .feature-card p { color: rgba(255,255,255,0.72); }
+
+  /* Showcase (screenshot + copy zigzag) */
+  .showcase { padding-bottom: 24px; }
+  .showcase-row {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  .showcase-row:last-child { margin-bottom: 0; }
+  .showcase-row.reverse { flex-direction: row-reverse; }
+  .showcase-row .shot-wrap { flex: 0 0 auto; display: flex; justify-content: center; }
+  .showcase-row .copy { flex: 1 1 auto; min-width: 0; }
+  .phone-frame {
+    width: 220px;
+    border-radius: 30px;
+    border: 7px solid var(--primary-dark);
+    box-shadow: 0 24px 48px rgba(14,30,66,0.28);
+    overflow: hidden;
+    background: var(--primary-dark);
+  }
+  .venues-section .phone-frame { border-color: rgba(255,255,255,0.85); box-shadow: 0 24px 48px rgba(0,0,0,0.4); }
+  .phone-frame img { display: block; width: 100%; height: auto; }
+  .copy-tag {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 8px;
+  }
+  .venues-section .copy-tag { color: #FFD966; }
+  .copy h3 { font-size: clamp(18px, 2.4vw, 22px); font-weight: 800; margin: 0 0 10px; color: var(--text); }
+  .venues-section .copy h3 { color: #fff; }
+  .copy p { font-size: 14.5px; line-height: 1.65; color: var(--text-secondary); margin: 0; }
+  .venues-section .copy p { color: rgba(255,255,255,0.78); }
+
+  /* Venue-owner dark section */
+  .venues-section {
+    background: linear-gradient(160deg, var(--primary-dark) 0%, #142a5c 60%, var(--secondary) 160%);
+    color: #fff;
+    padding: 72px 0;
+  }
+
+  .players-section { padding: 72px 0 40px; }
 
   /* Closing */
-  .closing {
-    text-align: center;
-    padding: 0 0 80px;
-  }
+  .closing { text-align: center; padding: 72px 0 80px; }
   .closing-card {
     background: var(--primary-dark);
     color: #fff;
     border-radius: 20px;
     padding: 48px 32px;
-    max-width: 640px;
+    max-width: 680px;
     margin: 0 auto;
   }
   .closing-card h2 { font-size: clamp(20px, 3vw, 26px); margin: 0 0 12px; font-weight: 800; }
-  .closing-card p { color: rgba(255,255,255,0.8); margin: 0; line-height: 1.6; }
+  .closing-card p.sub { color: rgba(255,255,255,0.78); margin: 0 0 28px; line-height: 1.6; }
+  .closing-card .badges { margin-bottom: 10px; }
+  .closing-card .coming-soon-tag { color: rgba(255,255,255,0.6); }
 
   footer {
     padding: 28px 0 40px;
@@ -137,32 +246,58 @@
     font-size: 13px;
   }
   footer a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+  @media (max-width: 720px) {
+    .audience-picker { grid-template-columns: 1fr; }
+    .showcase-row, .showcase-row.reverse { flex-direction: column; gap: 24px; }
+    .phone-frame { width: 200px; }
+  }
 </style>
 </head>
 <body>
 
   <section class="hero">
     <div class="container hero-inner">
-      <img class="logo" src="https://bfgunqehpbkvjdwsfxfa.supabase.co/storage/v1/object/public/app-assets/wordmark-mark-white.png" alt="Playr" />
-      <h1>Encuentra con quién jugar fútbol en tu ciudad</h1>
-      <p class="lead">Arma tu parche, organiza el partido, compite en torneos con tu equipo y reserva la cancha — todo desde una sola app.</p>
+      <img class="logo" src="https://bfgunqehpbkvjdwsfxfa.supabase.co/storage/v1/object/public/app-assets/wordmark-mark-white.png" alt="PlayR" />
+      <h1>Encuentra con quién jugar.<br>Haz crecer <span class="accent">tu cancha</span>.</h1>
+      <p class="lead">PlayR conecta jugadores de fútbol para armar el partido, el equipo o el torneo perfecto — y le da a cada cancha su propia vitrina digital: agenda, reservas y clientes nuevos, todo desde el celular.</p>
+
       <div class="badges">
         <div class="badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-          <span>App Store<span class="sub">Próximamente</span></span>
+          <div class="gp-icon"></div>
+          <span>Google Play</span>
         </div>
         <div class="badge">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 2.2c-.4.2-.6.6-.6 1v17.6c0 .4.2.8.6 1l9.9-9.8-9.9-9.8zm11.1 9.9-2.5 2.5 8.9 5.1c.5-.3.8-.8.8-1.4 0-.2 0-.4-.1-.6l-7.1-5.6zm0-2.2 7.1-5.6c.1-.2.1-.4.1-.6 0-.6-.3-1.1-.8-1.4l-8.9 5.1 2.5 2.5zm-1.5 1.1L4.3 21.3c.2.1.5.2.7.2.3 0 .5-.1.8-.2l9-5.1-2.6-2.9z"/></svg>
-          <span>Google Play<span class="sub">Próximamente</span></span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          <span>App Store</span>
         </div>
+      </div>
+      <p class="coming-soon-tag">Próximamente en ambas tiendas</p>
+
+      <div class="audience-picker">
+        <a class="audience-card" href="#jugadores">
+          <span class="emoji-icon">⚽</span>
+          <strong>Soy jugador</strong>
+          <span>Busco partido, equipo o torneo</span>
+        </a>
+        <a class="audience-card" href="#canchas">
+          <span class="emoji-icon">🏟️</span>
+          <strong>Tengo una cancha</strong>
+          <span>Quiero más reservas y clientes</span>
+        </a>
       </div>
     </div>
   </section>
 
-  <section class="features">
+  <!-- ============ PARA JUGADORES ============ -->
+  <section id="jugadores" class="players-section">
     <div class="container">
-      <h2>Todo lo que necesitas para jugar</h2>
-      <p class="sub">Playr conecta jugadores reales de tu zona, sin importar tu nivel.</p>
+      <div class="section-head">
+        <span class="eyebrow light">Para jugadores</span>
+        <h2>Todo lo que necesitas para jugar</h2>
+        <p>Encuentra partido, arma tu parche y compite en serio — con jugadores reales de tu zona, sin importar tu nivel.</p>
+      </div>
+
       <div class="grid">
         <div class="feature-card">
           <div class="feature-icon">
@@ -176,21 +311,167 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
           <h3>Arma tu equipo</h3>
-          <p>Crea un equipo fijo, arma tu plantilla con posiciones y dorsales, y compite en torneos de la comunidad.</p>
+          <p>Crea un equipo fijo, arma tu plantilla, y compite en torneos de liga contra otros equipos de la comunidad.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Chatea con tu parche</h3>
+          <p>Un chat por partido, por grupo y por equipo -- coordina la hora, manda una nota de voz o comparte una foto.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
           </div>
           <h3>Reserva tu cancha</h3>
-          <p>Busca canchas disponibles por ciudad, fecha y horario, y reserva directo desde la app.</p>
+          <p>Busca canchas disponibles por ciudad, fecha y horario, y reserva el turno directo desde la app.</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M5 4H3v2a4 4 0 0 0 4 4M19 4h2v2a4 4 0 0 1-4 4"/></svg>
           </div>
           <h3>Compite y destaca</h3>
-          <p>Lleva el marcador, gana insignias, sube tu reputación y compite en la tabla de goleadores de tu ciudad.</p>
+          <p>Lleva el marcador, gana insignias, sube tu reputación y pelea la Bota de Oro y el Balón de Oro de tu ciudad.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+          </div>
+          <h3>Conecta con gente real</h3>
+          <p>Agrega amigos, únete a grupos y arma partidos recurrentes con la gente con la que de verdad juegas.</p>
+        </div>
+      </div>
+
+      <div class="showcase">
+        <div class="showcase-row">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/home-feed.png" alt="Feed de partidos disponibles en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Encuentra partido</span>
+            <h3>Mira quién está jugando cerca de ti</h3>
+            <p>El feed de PlayR muestra los partidos abiertos en tu ciudad (o en todas a la vez) con cupos en vivo, modalidad y nivel -- únete con un toque o arma el tuyo en segundos.</p>
+          </div>
+        </div>
+
+        <div class="showcase-row reverse">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/create-game.png" alt="Pantalla de creación de partido en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Arma el partido</span>
+            <h3>A tu manera: modalidad, cancha y nivel</h3>
+            <p>Fútbol 5, 6, 7, 9 o 11, sintética o pasto, masculino, femenino o mixto -- eliges cada detalle y PlayR se encarga de avisarle a los jugadores correctos.</p>
+          </div>
+        </div>
+
+        <div class="showcase-row">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/tournament.png" alt="Tabla de posiciones de un torneo en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Equipos y torneos</span>
+            <h3>Compite en serio, no solo un picadito</h3>
+            <p>Arma tu equipo fijo, inscríbelo a un torneo de liga o eliminación directa, y sigue la tabla de posiciones partido a partido.</p>
+          </div>
+        </div>
+
+        <div class="showcase-row reverse">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/stats-awards.png" alt="Estadísticas y premios mensuales en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Estadísticas y premios</span>
+            <h3>Bota de Oro, MVP y mucho más</h3>
+            <p>Cada gol, asistencia y calificación cuenta para tu reputación -- y cada mes se premia al goleador, al más confiable y al MVP de tu ciudad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARA DUEÑOS DE CANCHA ============ -->
+  <section id="canchas" class="venues-section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow dark">Para dueños de cancha y negocios deportivos</span>
+        <h2>Tu cancha, con su propia vitrina digital</h2>
+        <p>PlayR no es solo para jugadores -- si administras una cancha sintética o un complejo deportivo, es la forma más simple de que te encuentren, reservar sin choques de horario y llevar el control de tu negocio desde el celular. Sin cuaderno, sin WhatsApp perdido.</p>
+      </div>
+
+      <div class="grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Aparece en el mapa</h3>
+          <p>Miles de jugadores buscando cancha en tu ciudad te ven en el mapa de PlayR, con dirección, fotos y disponibilidad real.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+          </div>
+          <h3>Agenda sin choques</h3>
+          <p>Cada turno reservado se bloquea solo -- nunca más dos clientes peleando por la misma hora. Confirma o rechaza desde tu celular.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Chatea con tus clientes</h3>
+          <p>Coordina el pago, resuelve una duda o confirma un turno directo por el chat de cada reserva -- sin salir de PlayR.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg>
+          </div>
+          <h3>Seguimiento de ventas</h3>
+          <p>Un panel de estadísticas te muestra reservas confirmadas, canceladas y ganancia estimada por periodo -- sin cuadernos ni Excel.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3 7h7l-5.5 4.5L18.5 21 12 16.5 5.5 21l2-7.5L2 9h7z"/></svg>
+          </div>
+          <h3>Destacada y verificada</h3>
+          <p>Gana la insignia de negocio verificado y aparece primero en las búsquedas con una cancha destacada -- más visibilidad, más reservas.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3>Sin comisiones ocultas</h3>
+          <p>El pago se sigue coordinando directo con tu cliente, como siempre -- PlayR no le mete la mano a tu cancha.</p>
+        </div>
+      </div>
+
+      <div class="showcase">
+        <div class="showcase-row">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/venue-map.png" alt="Mapa de canchas destacadas y verificadas en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Visibilidad real</span>
+            <h3>Que te encuentren cuando buscan cancha</h3>
+            <p>Tu negocio aparece en el mapa junto a los demás, con las insignias de "Destacada" y "Verificada" -- la diferencia entre ser una opción más o ser la primera que ven.</p>
+          </div>
+        </div>
+
+        <div class="showcase-row reverse">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/venue-booking.png" alt="Turnos libres para reservar una cancha en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Reservas automáticas</span>
+            <h3>Tus clientes reservan solos, a cualquier hora</h3>
+            <p>Ven tu disponibilidad real (no la que recuerdas de memoria) y apartan su turno sin necesidad de llamarte -- tú solo confirmas.</p>
+          </div>
+        </div>
+
+        <div class="showcase-row">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/venue-chat.png" alt="Chat de reserva con un negocio en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Comunicación directa</span>
+            <h3>Un chat por cada reserva, con tu marca de negocio</h3>
+            <p>Cada cliente sabe que le escribe a tu cancha (no a otro jugador cualquiera) -- coordina el pago, el acceso o cualquier detalle sin perder el hilo en WhatsApp.</p>
+          </div>
+        </div>
+
+        <div class="showcase-row reverse">
+          <div class="shot-wrap"><div class="phone-frame"><img src="screenshots/messages-reservas.png" alt="Bandeja de mensajes de reservas en PlayR" loading="lazy" /></div></div>
+          <div class="copy">
+            <span class="copy-tag">Todo en un solo lugar</span>
+            <h3>Tu negocio, organizado desde el celular</h3>
+            <p>Todas tus reservas y conversaciones quedan en una sola bandeja -- nunca más un mensaje perdido entre notas de voz de un grupo familiar.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -198,13 +479,24 @@
 
   <section class="closing container">
     <div class="closing-card">
-      <h2>Playr llega muy pronto</h2>
-      <p>Estamos afinando los últimos detalles antes del lanzamiento en iOS y Android. Bucaramanga, Colombia es el punto de partida — y vamos por más.</p>
+      <h2>PlayR llega muy pronto</h2>
+      <p class="sub">Estamos afinando los últimos detalles antes del lanzamiento en iOS y Android. Bucaramanga, Colombia es el punto de partida -- y vamos por más ciudades, más deportes y más canchas.</p>
+      <div class="badges">
+        <div class="badge">
+          <div class="gp-icon"></div>
+          <span>Google Play</span>
+        </div>
+        <div class="badge">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.53 4.08zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+          <span>App Store</span>
+        </div>
+      </div>
+      <p class="coming-soon-tag">Próximamente en ambas tiendas</p>
     </div>
   </section>
 
   <footer>
-    Playr · Bucaramanga, Colombia · ¿Dudas? Escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a>
+    PlayR · Bucaramanga, Colombia · ¿Dudas o quieres publicar tu cancha? Escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a>
   </footer>
 
 </body>
