@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Restablecer contraseña — Playr</title>
+<meta name="robots" content="noindex" />
+<style>
+  :root {
+    --primary: #004D95;
+    --primary-dark: #0E1E42;
+    --secondary: #A5004A;
+    --bg: #F6F3EC;
+    --surface: #FFFFFF;
+    --text: #232323;
+    --text-secondary: #6B6459;
+    --text-muted: #9C9587;
+    --border: #E4DFD3;
+    --error: #B91C1C;
+    --success: #047857;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px;
+  }
+  .card {
+    background: var(--surface);
+    border-radius: 16px;
+    max-width: 400px;
+    width: 100%;
+    padding: 32px 28px;
+    box-shadow: 0 4px 24px rgba(14, 30, 66, 0.08);
+  }
+  .logo-wrap {
+    background: var(--primary-dark);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .logo-wrap img { max-width: 140px; height: auto; display: block; margin: 0 auto; }
+  h1 { font-size: 20px; margin: 0 0 8px; }
+  p.subtitle { color: var(--text-secondary); font-size: 14px; line-height: 1.5; margin: 0 0 24px; }
+  label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-size: 15px;
+    margin-bottom: 16px;
+    background: var(--bg);
+    color: var(--text);
+  }
+  input[type="password"]:focus { outline: none; border-color: var(--primary); }
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; cursor: default; }
+  .msg { font-size: 14px; line-height: 1.5; padding: 12px 14px; border-radius: 10px; margin-bottom: 16px; }
+  .msg.error { background: #FEE2E2; color: var(--error); }
+  .msg.success { background: #D1FAE5; color: var(--success); }
+  .app-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+  .app-link a { color: var(--primary); font-weight: 600; text-decoration: none; }
+  .spinner {
+    width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--primary);
+    border-radius: 50%; margin: 20px auto; animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .center-text { text-align: center; color: var(--text-secondary); font-size: 14px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-wrap">
+      <img src="https://bfgunqehpbkvjdwsfxfa.supabase.co/storage/v1/object/public/app-assets/wordmark-mark-white.png" alt="Playr" />
+    </div>
+
+    <div id="loading-state">
+      <div class="spinner"></div>
+      <p class="center-text">Verificando tu enlace...</p>
+    </div>
+
+    <div id="invalid-state" style="display:none;">
+      <h1>Enlace inválido o vencido</h1>
+      <p class="subtitle">Pide un nuevo enlace de recuperación desde la app o desde la pantalla de inicio de sesión.</p>
+    </div>
+
+    <div id="form-state" style="display:none;">
+      <h1>Crea tu nueva contraseña</h1>
+      <p class="subtitle">Escríbela dos veces para confirmar.</p>
+      <div id="form-msg"></div>
+      <form id="reset-form">
+        <label for="password">Nueva contraseña</label>
+        <input type="password" id="password" autocomplete="new-password" minlength="6" required />
+        <label for="confirm">Confirmar contraseña</label>
+        <input type="password" id="confirm" autocomplete="new-password" minlength="6" required />
+        <button type="submit" id="submit-btn">Guardar contraseña</button>
+      </form>
+    </div>
+
+    <div id="done-state" style="display:none;">
+      <h1>¡Listo!</h1>
+      <p class="subtitle">Tu contraseña se actualizó. Ya puedes iniciar sesión con tu nueva contraseña, en la app o aquí en la web.</p>
+    </div>
+
+    <p class="app-link" id="app-link-wrap" style="display:none;">
+      ¿Prefieres la app? <a id="app-link" href="#">Ábrela en Playr</a>
+    </p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script>
+    var SUPABASE_URL = "https://bfgunqehpbkvjdwsfxfa.supabase.co";
+    var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmZ3VucWVocGJrdmpkd3NmeGZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NDU3MDUsImV4cCI6MjA5NjAyMTcwNX0.74Vl1HbjulRFA70rFuz0nB9r1QIEX9QQGH3XO3AtTF0";
+    var client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: { detectSessionInUrl: false, persistSession: false }
+    });
+
+    function show(id) {
+      ["loading-state", "invalid-state", "form-state", "done-state"].forEach(function (s) {
+        document.getElementById(s).style.display = s === id ? "block" : "none";
+      });
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var tokenHash = params.get("token_hash");
+    var type = params.get("type") || "recovery";
+
+    var appLinkWrap = document.getElementById("app-link-wrap");
+    if (tokenHash) {
+      var appLink = document.getElementById("app-link");
+      appLink.href = "playr://reset-password?token_hash=" + encodeURIComponent(tokenHash) + "&type=" + encodeURIComponent(type);
+      appLinkWrap.style.display = "block";
+    }
+
+    if (!tokenHash) {
+      show("invalid-state");
+    } else {
+      client.auth.verifyOtp({ token_hash: tokenHash, type: "recovery" }).then(function (res) {
+        if (res.error) {
+          show("invalid-state");
+        } else {
+          show("form-state");
+        }
+      });
+    }
+
+    document.getElementById("reset-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var password = document.getElementById("password").value;
+      var confirm = document.getElementById("confirm").value;
+      var msgEl = document.getElementById("form-msg");
+      msgEl.innerHTML = "";
+
+      if (password.length < 6) {
+        msgEl.innerHTML = '<div class="msg error">La contraseña debe tener al menos 6 caracteres.</div>';
+        return;
+      }
+      if (password !== confirm) {
+        msgEl.innerHTML = '<div class="msg error">Las contraseñas no coinciden.</div>';
+        return;
+      }
+
+      var btn = document.getElementById("submit-btn");
+      btn.disabled = true;
+      btn.textContent = "Guardando...";
+
+      client.auth.updateUser({ password: password }).then(function (res) {
+        btn.disabled = false;
+        btn.textContent = "Guardar contraseña";
+        if (res.error) {
+          msgEl.innerHTML = '<div class="msg error">No se pudo cambiar la contraseña. Intenta pedir el enlace de nuevo.</div>';
+        } else {
+          client.auth.signOut();
+          show("done-state");
+          appLinkWrap.style.display = "none";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
