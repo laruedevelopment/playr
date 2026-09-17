@@ -50,17 +50,33 @@
   h1 { font-size: 20px; margin: 0 0 8px; }
   p.subtitle { color: var(--text-secondary); font-size: 14px; line-height: 1.5; margin: 0 0 24px; }
   label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
-  input[type="password"] {
+  .password-wrap { position: relative; margin-bottom: 16px; }
+  .password-wrap input {
     width: 100%;
-    padding: 12px 14px;
+    padding: 12px 44px 12px 14px;
     border: 1.5px solid var(--border);
     border-radius: 10px;
     font-size: 15px;
-    margin-bottom: 16px;
     background: var(--bg);
     color: var(--text);
   }
-  input[type="password"]:focus { outline: none; border-color: var(--primary); }
+  .password-wrap input:focus { outline: none; border-color: var(--primary); }
+  .toggle-password {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    bottom: 4px;
+    width: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--text-muted);
+  }
+  .toggle-password svg { width: 18px; height: 18px; }
   button {
     width: 100%;
     padding: 14px;
@@ -114,9 +130,19 @@
       <div id="form-msg"></div>
       <form id="reset-form">
         <label for="password">Nueva contraseña</label>
-        <input type="password" id="password" autocomplete="new-password" minlength="6" required />
+        <div class="password-wrap">
+          <input type="password" id="password" autocomplete="new-password" minlength="6" required />
+          <button type="button" class="toggle-password" data-target="password" aria-label="Mostrar contraseña">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
         <label for="confirm">Confirmar contraseña</label>
-        <input type="password" id="confirm" autocomplete="new-password" minlength="6" required />
+        <div class="password-wrap">
+          <input type="password" id="confirm" autocomplete="new-password" minlength="6" required />
+          <button type="button" class="toggle-password" data-target="confirm" aria-label="Mostrar contraseña">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
         <button type="submit" id="submit-btn">Guardar contraseña</button>
       </form>
     </div>
@@ -144,6 +170,22 @@
         document.getElementById(s).style.display = s === id ? "block" : "none";
       });
     }
+
+    // Ojito de mostrar/ocultar contraseña -- faltaba acá (la pantalla
+    // equivalente dentro de la app, ResetPasswordScreen.tsx, ya lo tenía
+    // desde antes vía Input.tsx). Un solo ícono en línea, sin librería --
+    // esta página no tiene ningún framework/bundler.
+    var eyeIcon = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/>';
+    var eyeOffIcon = '<path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.6 21.6 0 0 1 5.06-6.06M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a21.6 21.6 0 0 1-2.94 4.24M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    document.querySelectorAll(".toggle-password").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var input = document.getElementById(btn.getAttribute("data-target"));
+        var showing = input.type === "text";
+        input.type = showing ? "password" : "text";
+        btn.querySelector("svg").innerHTML = showing ? eyeIcon : eyeOffIcon;
+        btn.setAttribute("aria-label", showing ? "Mostrar contraseña" : "Ocultar contraseña");
+      });
+    });
 
     var params = new URLSearchParams(window.location.search);
     var tokenHash = params.get("token_hash");
