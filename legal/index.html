@@ -60,13 +60,8 @@
   .topbar-inner span.dim { color: rgba(255,255,255,0.65); font-weight: 500; }
 
   /* ---------- Header ---------- */
-  header.hero { max-width: 1120px; margin: 0 auto; padding: 56px 24px 40px; display: flex; align-items: flex-start; gap: 20px; }
-  .monogram {
-    flex: none; width: 56px; height: 56px; border-radius: 14px;
-    background: var(--primary-light);
-    display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);
-  }
-  .monogram img { width: 30px; height: auto; display: block; }
+  header.hero { max-width: 1120px; margin: 0 auto; padding: 56px 24px 40px; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  .brand-mark { height: 34px; width: auto; display: block; }
   .hero-text h1 { font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.6rem); letter-spacing: -0.01em; }
   .hero-text .subtitle { margin-top: 6px; font-size: 1.05rem; color: var(--text-secondary); font-weight: 500; }
   .meta-row { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
@@ -131,8 +126,7 @@
   @media (max-width: 560px) {
     header.hero { padding: 40px 18px 28px; }
     .layout { padding: 0 18px 72px; }
-    .monogram { width: 46px; height: 46px; border-radius: 12px; }
-    .monogram img { width: 24px; }
+    .brand-mark { height: 26px; }
   }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
@@ -149,9 +143,7 @@
 </div>
 
 <header class="hero">
-  <div class="monogram" aria-hidden="true">
-    <img src="../assets/logo-mark.png" alt="" />
-  </div>
+  <img class="brand-mark" src="../assets/wordmark-mark.png" alt="PlayR" />
   <div class="hero-text">
     <h1>Términos y Privacidad</h1>
     <p class="subtitle">Las reglas de uso de PlayR y cómo tratamos tus datos personales.</p>
