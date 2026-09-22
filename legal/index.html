@@ -52,8 +52,11 @@
     display: flex; align-items: center; justify-content: space-between; gap: 12px;
     font-size: 0.82rem; font-weight: 600;
   }
-  .topbar-inner a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-  .topbar-inner a img { height: 20px; width: auto; filter: brightness(0) invert(1); }
+  .topbar-inner a.brand { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .topbar-inner a.brand img { height: 20px; width: auto; filter: brightness(0) invert(1); }
+  .topbar-inner .topbar-nav { display: flex; align-items: center; gap: 16px; }
+  .topbar-inner .topbar-nav a { color: rgba(255,255,255,0.82); text-decoration: none; font-weight: 600; }
+  .topbar-inner .topbar-nav a:hover { color: #fff; text-decoration: underline; }
   .topbar-inner span.dim { color: rgba(255,255,255,0.65); font-weight: 500; }
 
   /* ---------- Header ---------- */
@@ -140,8 +143,8 @@
 
 <div class="topbar">
   <div class="topbar-inner">
-    <a href="../"><img src="../assets/logo-mark.png" alt="PlayR" /> PlayR</a>
-    <span class="dim">Colombia</span>
+    <a class="brand" href="../"><img src="../assets/logo-mark.png" alt="PlayR" /> PlayR</a>
+    <nav class="topbar-nav"><a href="../">Inicio</a><span class="dim">Colombia</span></nav>
   </div>
 </div>
 

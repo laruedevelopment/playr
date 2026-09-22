@@ -32,6 +32,18 @@
   h1, h2, h3 { text-wrap: balance; }
   section { scroll-margin-top: 24px; }
 
+  /* Top bar -- mismo componente en todas las sub-páginas del sitio (ver /legal/) */
+  .topbar { background: var(--primary-dark); color: rgba(255,255,255,0.82); }
+  .topbar-inner {
+    max-width: 1100px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    font-size: 0.82rem; font-weight: 600;
+  }
+  .topbar-inner a.brand { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .topbar-inner a.brand img { height: 20px; width: auto; filter: brightness(0) invert(1); }
+  .topbar-inner .topbar-nav a { color: rgba(255,255,255,0.82); text-decoration: none; font-weight: 600; }
+  .topbar-inner .topbar-nav a:hover { color: #fff; text-decoration: underline; }
+
   /* Hero */
   .hero {
     background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 55%, var(--secondary) 130%);
@@ -262,6 +274,13 @@
 </style>
 </head>
 <body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./"><img src="assets/logo-mark.png" alt="PlayR" /> PlayR</a>
+      <nav class="topbar-nav"><a href="legal/">Términos y Privacidad</a></nav>
+    </div>
+  </div>
 
   <section class="hero">
     <div class="container hero-inner">
@@ -503,7 +522,7 @@
   </section>
 
   <footer>
-    PlayR · Bucaramanga, Colombia · ¿Dudas o quieres publicar tu cancha? Escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a>
+    PlayR · Bucaramanga, Colombia · <a href="legal/">Términos y Privacidad</a> · ¿Dudas o quieres publicar tu cancha? Escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a>
   </footer>
 
 </body>
