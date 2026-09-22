@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Términos y Privacidad — PlayR</title>
+<meta name="description" content="Términos y Condiciones y Política de Privacidad de PlayR, la app social para encontrar con quién jugar fútbol, organizar partidos y reservar cancha en Colombia." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #004D95;
+    --primary-dark: #0E1E42;
+    --primary-light: #E5EDF4;
+    --secondary: #A5004A;
+    --secondary-light: #F6E6ED;
+    --bg: #F6F3EC;
+    --surface: #FFFFFF;
+    --text: #232323;
+    --text-secondary: #6B6459;
+    --text-muted: #8A8374;
+    --border: #E6E0D2;
+    --divider: #EFEBE1;
+    --shadow: 0 1px 2px rgba(14,30,66,0.05), 0 8px 24px rgba(14,30,66,0.06);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  h1, h2, h3 { font-family: 'Manrope', sans-serif; font-weight: 800; color: var(--primary-dark); text-wrap: balance; margin: 0; }
+  a { color: var(--primary); text-decoration-color: var(--border); text-underline-offset: 3px; }
+  a:hover { text-decoration-color: var(--primary); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--secondary); outline-offset: 2px; border-radius: 2px; }
+
+  .skip-link {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--primary-dark); color: #fff; padding: 10px 16px; border-radius: 0 0 8px 0; z-index: 100;
+  }
+  .skip-link:focus { left: 0; }
+
+  /* ---------- Top bar ---------- */
+  .topbar { background: var(--primary-dark); color: rgba(255,255,255,0.82); }
+  .topbar-inner {
+    max-width: 1120px; margin: 0 auto; padding: 12px 24px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    font-size: 0.82rem; font-weight: 600;
+  }
+  .topbar-inner a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .topbar-inner a img { height: 20px; width: auto; filter: brightness(0) invert(1); }
+  .topbar-inner span.dim { color: rgba(255,255,255,0.65); font-weight: 500; }
+
+  /* ---------- Header ---------- */
+  header.hero { max-width: 1120px; margin: 0 auto; padding: 56px 24px 40px; display: flex; align-items: flex-start; gap: 20px; }
+  .monogram {
+    flex: none; width: 56px; height: 56px; border-radius: 14px;
+    background: var(--primary-light);
+    display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);
+  }
+  .monogram img { width: 30px; height: auto; display: block; }
+  .hero-text h1 { font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.6rem); letter-spacing: -0.01em; }
+  .hero-text .subtitle { margin-top: 6px; font-size: 1.05rem; color: var(--text-secondary); font-weight: 500; }
+  .meta-row { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .meta-pill {
+    display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 999px;
+    font-size: 0.78rem; color: var(--text-secondary); font-variant-numeric: tabular-nums;
+  }
+  .meta-pill strong { color: var(--primary-dark); font-weight: 700; }
+  .meta-pill .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--secondary); flex: none; }
+
+  /* ---------- Layout ---------- */
+  .layout { max-width: 1120px; margin: 0 auto; padding: 0 24px 96px; display: grid; grid-template-columns: 232px minmax(0, 1fr); gap: 48px; align-items: start; }
+
+  nav.toc {
+    position: sticky; top: 24px; padding: 20px 18px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow);
+    max-height: calc(100vh - 48px); overflow-y: auto;
+  }
+  nav.toc h2 { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 10px; }
+  nav.toc .toc-group + .toc-group { margin-top: 20px; }
+  nav.toc .toc-group-label { font-size: 0.72rem; font-weight: 700; color: var(--secondary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: block; }
+  nav.toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  nav.toc a { display: block; padding: 5px 8px; margin: 0 -8px; border-radius: 7px; font-size: 0.86rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; line-height: 1.35; }
+  nav.toc a:hover { background: var(--primary-light); color: var(--primary-dark); }
+
+  /* ---------- Content ---------- */
+  main { min-width: 0; }
+
+  .doc-intro {
+    background: var(--secondary-light); border: 1px solid #EAC7D4; border-radius: 14px;
+    padding: 18px 20px; margin-bottom: 40px; font-size: 0.92rem; color: #6B1638; display: flex; gap: 12px;
+  }
+  .doc-intro svg { flex: none; margin-top: 2px; }
+
+  article + article { margin-top: 64px; padding-top: 56px; border-top: 1px solid var(--divider); }
+
+  .doc-title { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .doc-title h2 { font-size: clamp(1.5rem, 1.3rem + 0.7vw, 1.85rem); }
+  .doc-title .doc-count { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+  section.clause { padding: 28px 0; border-bottom: 1px solid var(--divider); scroll-margin-top: 24px; }
+  section.clause:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .clause-heading { display: flex; align-items: baseline; gap: 14px; margin-bottom: 10px; }
+  .clause-num { flex: none; font-size: 1.05rem; font-weight: 800; color: var(--secondary); font-variant-numeric: tabular-nums; min-width: 1.6em; }
+  .clause-heading h3 { font-size: 1.15rem; }
+
+  .clause p { margin: 0; max-width: 68ch; color: var(--text); }
+  .clause p + p { margin-top: 12px; }
+  .clause ul { margin: 12px 0 0; padding-left: 1.3em; max-width: 68ch; color: var(--text); }
+  .clause li + li { margin-top: 6px; }
+
+  footer.page-footer { max-width: 1120px; margin: 0 auto; padding: 40px 24px 64px; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--divider); }
+  footer.page-footer a { color: var(--text-secondary); font-weight: 600; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; gap: 8px; }
+    nav.toc { position: static; max-height: none; display: flex; gap: 20px; overflow-x: auto; margin-bottom: 32px; -webkit-overflow-scrolling: touch; }
+    nav.toc .toc-group { flex: none; min-width: 190px; }
+  }
+  @media (max-width: 560px) {
+    header.hero { padding: 40px 18px 28px; }
+    .layout { padding: 0 18px 72px; }
+    .monogram { width: 46px; height: 46px; border-radius: 12px; }
+    .monogram img { width: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a href="../"><img src="../assets/logo-mark.png" alt="PlayR" /> PlayR</a>
+    <span class="dim">Colombia</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="monogram" aria-hidden="true">
+    <img src="../assets/logo-mark.png" alt="" />
+  </div>
+  <div class="hero-text">
+    <h1>Términos y Privacidad</h1>
+    <p class="subtitle">Las reglas de uso de PlayR y cómo tratamos tus datos personales.</p>
+    <div class="meta-row">
+      <span class="meta-pill"><span class="dot"></span> Versión <strong>5</strong></span>
+      <span class="meta-pill">Publicado el <strong>22 de septiembre de 2026</strong></span>
+      <span class="meta-pill">Rige en <strong>Colombia</strong></span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="Contenido del documento">
+    <h2>Contenido</h2>
+    <div class="toc-group">
+      <span class="toc-group-label">Términos y condiciones</span>
+      <ol>
+        <li><a href="#t-1">1. Aceptación de los términos</a></li>
+        <li><a href="#t-2">2. Descripción del servicio</a></li>
+        <li><a href="#t-3">3. Elegibilidad y edad mínima</a></li>
+        <li><a href="#t-4">4. Tu cuenta</a></li>
+        <li><a href="#t-5">5. Conducta esperada</a></li>
+        <li><a href="#t-6">6. Partidos y seguridad física</a></li>
+        <li><a href="#t-7">7. Calificaciones y reputación</a></li>
+        <li><a href="#t-8">8. Contenido que publicas</a></li>
+        <li><a href="#t-9">9. Fotos y notas de voz en los chats</a></li>
+        <li><a href="#t-10">10. Suspensión y eliminación</a></li>
+        <li><a href="#t-11">11. Cambios a estos términos</a></li>
+        <li><a href="#t-12">12. Ley aplicable</a></li>
+        <li><a href="#t-13">13. Contacto</a></li>
+      </ol>
+    </div>
+    <div class="toc-group">
+      <span class="toc-group-label">Política de privacidad</span>
+      <ol>
+        <li><a href="#p-1">1. Responsable del tratamiento</a></li>
+        <li><a href="#p-2">2. Datos que recolectamos</a></li>
+        <li><a href="#p-3">3. Para qué usamos tus datos</a></li>
+        <li><a href="#p-4">4. Datos de menores de edad</a></li>
+        <li><a href="#p-5">5. Con quién compartimos tus datos</a></li>
+        <li><a href="#p-6">6. Tus derechos (ARCO)</a></li>
+        <li><a href="#p-7">7. Seguridad</a></li>
+        <li><a href="#p-8">8. Eliminación de tu cuenta</a></li>
+        <li><a href="#p-9">9. Moderación y acceso administrativo</a></li>
+        <li><a href="#p-10">10. Dueños de cancha y clientes frecuentes</a></li>
+        <li><a href="#p-11">11. Cambios a esta política</a></li>
+        <li><a href="#p-12">12. Contacto</a></li>
+        <li><a href="#p-13">13. Cómo eliminar tu cuenta y tus datos</a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <main id="contenido">
+    <div class="doc-intro">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 9v4m0 4h.01M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0Z" stroke="#A5004A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <p>Este documento reúne los Términos y Condiciones y la Política de Privacidad de PlayR, tal como se presentan y se aceptan dentro de la app. Si actualizamos esta versión de forma sustancial, se te notificará dentro de PlayR y deberás aceptar la nueva versión para seguir usándola.</p>
+    </div>
+
+    <article aria-labelledby="terminos-titulo">
+      <div class="doc-title">
+        <h2 id="terminos-titulo">Términos y Condiciones de Uso</h2>
+        <span class="doc-count">13 cláusulas</span>
+      </div>
+
+      <section class="clause" id="t-1">
+        <div class="clause-heading"><span class="clause-num">1</span><h3>Aceptación de los términos</h3></div>
+        <p>Al crear una cuenta en PlayR aceptas estos Términos y Condiciones y nuestra Política de Privacidad. Si no estás de acuerdo, no debes usar la app.</p>
+      </section>
+
+      <section class="clause" id="t-2">
+        <div class="clause-heading"><span class="clause-num">2</span><h3>Descripción del servicio</h3></div>
+        <p>PlayR es una aplicación social para encontrar personas con quién jugar fútbol (en todas sus modalidades), organizar partidos, armar equipos y grupos, y conectar con otros jugadores de tu ciudad.</p>
+      </section>
+
+      <section class="clause" id="t-3">
+        <div class="clause-heading"><span class="clause-num">3</span><h3>Elegibilidad y edad mínima</h3></div>
+        <p>Debes tener al menos 18 años para crear una cuenta en PlayR. No aceptamos registros de personas menores de edad.</p>
+      </section>
+
+      <section class="clause" id="t-4">
+        <div class="clause-heading"><span class="clause-num">4</span><h3>Tu cuenta</h3></div>
+        <p>Eres responsable de la información que registras y de mantener segura tu contraseña. Solo puedes tener una cuenta a tu nombre. No puedes suplantar a otra persona ni crear perfiles falsos. También puedes crear tu cuenta o iniciar sesión usando tu cuenta de Google o de Apple; estas condiciones te aplican igual sin importar el método que uses para entrar.</p>
+      </section>
+
+      <section class="clause" id="t-5">
+        <div class="clause-heading"><span class="clause-num">5</span><h3>Conducta esperada</h3></div>
+        <p>Al organizar o participar en partidos, o al comunicarte con otros usuarios por cualquier chat de la app, te comprometes a tratar a los demás con respeto. No se permite acoso, discriminación, violencia, spam, ni contenido ilegal u ofensivo — en texto, fotos o notas de voz. Los reportes de otros usuarios pueden llevar a la suspensión de tu cuenta.</p>
+      </section>
+
+      <section class="clause" id="t-6">
+        <div class="clause-heading"><span class="clause-num">6</span><h3>Partidos y seguridad física</h3></div>
+        <p>PlayR es una herramienta para coordinar partidos entre usuarios — no organiza, supervisa ni garantiza la seguridad de los partidos, las canchas, ni el estado físico de los participantes. Jugar fútbol conlleva riesgo de lesión. Participas en cualquier partido bajo tu propia responsabilidad y decisión. PlayR no es responsable por lesiones, daños, pérdidas o conflictos entre usuarios que ocurran antes, durante o después de un partido coordinado a través de la app.</p>
+      </section>
+
+      <section class="clause" id="t-7">
+        <div class="clause-heading"><span class="clause-num">7</span><h3>Calificaciones y reputación</h3></div>
+        <p>Después de un partido, los participantes pueden calificarse entre sí. Estas calificaciones reflejan la opinión de otros usuarios, no la de PlayR, y se muestran de buena fe para fomentar confianza en la comunidad.</p>
+      </section>
+
+      <section class="clause" id="t-8">
+        <div class="clause-heading"><span class="clause-num">8</span><h3>Contenido que publicas</h3></div>
+        <p>Mantienes los derechos sobre las fotos, notas de voz y demás información que subes, pero nos das permiso para mostrarlas dentro de la app a los destinatarios correspondientes (otros jugadores, según la configuración de privacidad de tu cuenta y de tus partidos, o el otro participante de un chat).</p>
+      </section>
+
+      <section class="clause" id="t-9">
+        <div class="clause-heading"><span class="clause-num">9</span><h3>Fotos y notas de voz en los chats</h3></div>
+        <p>Los chats de PlayR (de partido, de grupo, y mensajes directos) permiten enviar fotos y notas de voz además de texto. Eres el único responsable del contenido que envías. Está <strong>estrictamente prohibido</strong>, sin excepción, enviar:</p>
+        <ul>
+          <li>Material que constituya abuso o explotación sexual de menores de edad (CSAM). Esta prohibición tiene <strong>tolerancia cero</strong>: cualquier cuenta que envíe este tipo de material será eliminada de inmediato y permanentemente, sin previo aviso, y reportaremos el hecho a las autoridades colombianas competentes y/o al NCMEC (National Center for Missing &amp; Exploited Children) cuando la ley lo exija o lo permita.</li>
+          <li>Contenido sexual explícito no solicitado, violento, o que incite al odio o la discriminación.</li>
+          <li>Contenido que infrinja derechos de autor o de propiedad intelectual de terceros.</li>
+          <li>Cualquier otro contenido ilegal bajo la ley colombiana.</li>
+        </ul>
+        <p>Para poder investigar reportes de otros usuarios y hacer cumplir esta cláusula, PlayR puede revisar el contenido de un chat reportado (incluyendo fotos y notas de voz) y eliminar mensajes puntuales o suspender/eliminar la cuenta responsable — ver la cláusula 9 de la Política de Privacidad más abajo para el detalle de este acceso administrativo.</p>
+      </section>
+
+      <section class="clause" id="t-10">
+        <div class="clause-heading"><span class="clause-num">10</span><h3>Suspensión y eliminación de cuentas</h3></div>
+        <p>Podemos suspender o eliminar cuentas que incumplan estos términos — de forma inmediata y sin previo aviso en casos graves (como el contenido descrito en la cláusula 9). Tú puedes eliminar tu cuenta en cualquier momento desde Configuración — esto borra tu perfil y la información asociada de forma permanente.</p>
+      </section>
+
+      <section class="clause" id="t-11">
+        <div class="clause-heading"><span class="clause-num">11</span><h3>Cambios a estos términos</h3></div>
+        <p>Podemos actualizar estos Términos y Condiciones. Si hacemos cambios importantes, te notificaremos dentro de la app y deberás aceptar la nueva versión para seguir usando PlayR.</p>
+      </section>
+
+      <section class="clause" id="t-12">
+        <div class="clause-heading"><span class="clause-num">12</span><h3>Ley aplicable</h3></div>
+        <p>Estos términos se rigen por las leyes de la República de Colombia.</p>
+      </section>
+
+      <section class="clause" id="t-13">
+        <div class="clause-heading"><span class="clause-num">13</span><h3>Contacto</h3></div>
+        <p>Si tienes preguntas sobre estos términos, contáctanos desde la app en Configuración → Acerca de, o a laruedeveloper@gmail.com. Para reportar contenido ilegal o abusivo que hayas visto en la app, usa el botón de reportar dentro de la app, o escríbenos directamente si se trata de una emergencia.</p>
+      </section>
+    </article>
+
+    <article aria-labelledby="privacidad-titulo">
+      <div class="doc-title">
+        <h2 id="privacidad-titulo">Política de Privacidad</h2>
+        <span class="doc-count">13 cláusulas</span>
+      </div>
+
+      <section class="clause" id="p-1">
+        <div class="clause-heading"><span class="clause-num">1</span><h3>Responsable del tratamiento</h3></div>
+        <p>PlayR es responsable del tratamiento de tus datos personales conforme a la Ley 1581 de 2012 y el Decreto 1377 de 2013 de Colombia (régimen de protección de datos / habeas data).</p>
+      </section>
+
+      <section class="clause" id="p-2">
+        <div class="clause-heading"><span class="clause-num">2</span><h3>Datos que recolectamos</h3></div>
+        <p>Recolectamos: datos de registro (nombre, usuario, correo, fecha de nacimiento, ciudad); datos de perfil que decidas agregar (foto, biografía, género, nivel de juego, posición preferida, estatura y peso — estos dos últimos siempre opcionales); ubicación aproximada o exacta cuando la activas para mostrarte partidos cercanos; contenido que generas (partidos, mensajes de chat incluyendo fotos y notas de voz, calificaciones, reportes); datos técnicos básicos para el funcionamiento de notificaciones push; y, solo si solicitas administrar una cancha dentro de la app, el nombre de tu negocio, un teléfono de contacto, y una foto o documento que sirva como prueba de que el negocio existe (este último se guarda de forma privada y solo lo puede ver un administrador de PlayR al revisar tu solicitud). Si te registras o inicias sesión con tu cuenta de Google o de Apple, recibimos tu nombre y tu correo electrónico desde ese proveedor — con Apple, puedes elegir ocultar tu correo real, y en ese caso recibimos una dirección de reenvío que Apple genera, no tu correo verdadero.</p>
+      </section>
+
+      <section class="clause" id="p-3">
+        <div class="clause-heading"><span class="clause-num">3</span><h3>Para qué usamos tus datos</h3></div>
+        <p>Para crear y mostrar tu perfil a otros jugadores, permitirte organizar y unirte a partidos, calcular distancias y recomendaciones, enviarte notificaciones relevantes (recordatorios de partidos, solicitudes de amistad, cambios legales), y moderar la comunidad (reportes, bloqueos).</p>
+      </section>
+
+      <section class="clause" id="p-4">
+        <div class="clause-heading"><span class="clause-num">4</span><h3>Datos de menores de edad</h3></div>
+        <p>PlayR no está dirigida a personas menores de 18 años y no permite el registro de menores de edad. No recolectamos intencionalmente datos de menores; si detectamos que una cuenta pertenece a una persona menor de 18 años, la eliminaremos.</p>
+      </section>
+
+      <section class="clause" id="p-5">
+        <div class="clause-heading"><span class="clause-num">5</span><h3>Con quién compartimos tus datos</h3></div>
+        <p>No vendemos tus datos personales. Tu perfil (nombre, foto, nivel, posición) es visible para otros jugadores según la privacidad que configures. Usamos proveedores de infraestructura (hosting, base de datos, notificaciones push) que procesan datos en nuestro nombre bajo acuerdos de confidencialidad.</p>
+      </section>
+
+      <section class="clause" id="p-6">
+        <div class="clause-heading"><span class="clause-num">6</span><h3>Tus derechos (derechos ARCO)</h3></div>
+        <p>Puedes acceder, actualizar, rectificar o solicitar la eliminación de tus datos personales en cualquier momento. La mayoría de estas acciones están disponibles directamente en Configuración → Editar perfil o Configuración → Eliminar cuenta. También puedes escribirnos desde Configuración → Acerca de para ejercer cualquiera de estos derechos.</p>
+      </section>
+
+      <section class="clause" id="p-7">
+        <div class="clause-heading"><span class="clause-num">7</span><h3>Seguridad</h3></div>
+        <p>Aplicamos medidas técnicas y organizativas razonables para proteger tus datos, incluyendo control de acceso a la base de datos y cifrado en tránsito. Las fotos y notas de voz de los chats, y las fotos/documentos que sirven como prueba al solicitar administrar una cancha, se guardan en almacenamiento privado — solo son accesibles para los propios participantes de esa conversación y para administradores de PlayR (ver cláusula 9 abajo).</p>
+      </section>
+
+      <section class="clause" id="p-8">
+        <div class="clause-heading"><span class="clause-num">8</span><h3>Eliminación de tu cuenta</h3></div>
+        <p>Al eliminar tu cuenta desde Configuración, se elimina de forma permanente tu perfil y la información directamente asociada (partidos creados, calificaciones, amistades, mensajes con su texto, fotos y notas de voz). Esta acción no se puede deshacer.</p>
+      </section>
+
+      <section class="clause" id="p-9">
+        <div class="clause-heading"><span class="clause-num">9</span><h3>Moderación de contenido y acceso administrativo</h3></div>
+        <p>Para poder investigar reportes de usuarios, hacer cumplir estos Términos y Condiciones, y proteger a la comunidad, las cuentas administrativas de PlayR pueden ver el contenido de cualquier partido, grupo o chat (incluyendo mensajes directos, fotos y notas de voz) y el perfil completo de cualquier usuario, <strong>sin importar la configuración de privacidad que hayas elegido</strong> (quién puede escribirte, quién ve tus redes sociales o calificaciones, o si apareces en las búsquedas). Este acceso existe únicamente para fines de moderación y soporte — nunca se usa para fines comerciales ni se comparte con terceros — y puede resultar en la eliminación de un mensaje puntual, la suspensión, o la eliminación permanente de una cuenta que incumpla estos términos.</p>
+      </section>
+
+      <section class="clause" id="p-10">
+        <div class="clause-heading"><span class="clause-num">10</span><h3>Dueños de cancha y estadísticas de clientes frecuentes</h3></div>
+        <p>Si reservas cancha a través de PlayR, el negocio donde reservas puede ver, dentro de su propio panel, un resumen de tus reservas con ESE negocio: cuántas veces has reservado, con qué frecuencia, y tu nombre de perfil — para que el dueño pueda reconocerte como cliente habitual y, por ejemplo, ofrecerte promociones. El dueño solo ve esto de las reservas hechas en SUS propias canchas, nunca de tu actividad en otros negocios ni de tus partidos, calificaciones o datos fuera de esa relación puntual de reserva. Este uso está autorizado por el simple hecho de reservar en un negocio dentro de la app — no es necesario un consentimiento aparte, de la misma forma en que cualquier negocio que visitas repetidamente en persona puede reconocerte como cliente frecuente.</p>
+      </section>
+
+      <section class="clause" id="p-11">
+        <div class="clause-heading"><span class="clause-num">11</span><h3>Cambios a esta política</h3></div>
+        <p>Si actualizamos esta política de forma sustancial, te lo notificaremos dentro de la app.</p>
+      </section>
+
+      <section class="clause" id="p-12">
+        <div class="clause-heading"><span class="clause-num">12</span><h3>Contacto</h3></div>
+        <p>Para ejercer tus derechos de habeas data o resolver dudas sobre el tratamiento de tus datos, contáctanos desde Configuración → Acerca de, o a laruedeveloper@gmail.com.</p>
+      </section>
+
+      <section class="clause" id="p-13">
+        <div class="clause-heading"><span class="clause-num">13</span><h3>Cómo eliminar tu cuenta y tus datos</h3></div>
+        <p><strong>Desde la app (inmediato):</strong></p>
+        <p>1. Abre PlayR e inicia sesión.<br>2. Ve a la pestaña Perfil → Configuración.<br>3. Toca "Eliminar cuenta" y confirma.</p>
+        <p><strong>Sin la app instalada:</strong> escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a> desde el correo asociado a tu cuenta, indicando tu nombre de usuario y pidiendo la eliminación de tu cuenta. Verificaremos que la solicitud venga de ese correo antes de proceder, y confirmaremos por escrito cuando se haya completado.</p>
+        <p><strong>Qué se elimina:</strong> tu perfil completo (nombre, foto, biografía, nivel, posición, estatura/peso si los agregaste), los partidos que creaste, tus calificaciones dadas y recibidas, tus amistades, tus mensajes de chat (de partido, directos y de grupo) con su texto, fotos y notas de voz, tus reportes, y tu cuenta de acceso (correo/contraseña).</p>
+        <p><strong>Qué se conserva:</strong> nada — no conservamos ningún dato personal después de eliminar la cuenta. La eliminación es permanente e inmediata al confirmarse, y no se puede deshacer.</p>
+      </section>
+    </article>
+  </main>
+</div>
+
+<footer class="page-footer">
+  <p>PlayR · Documento vigente desde el 22 de septiembre de 2026 (versión 5). Consulta la versión más reciente y aceptada dentro de la app en Configuración → Acerca de. · <a href="../">Volver a PlayR</a></p>
+</footer>
+
+</body>
+</html>

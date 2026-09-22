@@ -10,6 +10,12 @@ Supabase igual que la app móvil).
   "Restablecer contraseña" en el repo principal (`playr/supabase/
   email-templates/reset-password.html`) para el enlace exacto que se
   manda.
+- `/legal/` -- Términos y Condiciones + Política de Privacidad públicos
+  (requisito de Google Play para usuarios sin la app instalada). Migrada
+  desde un artefacto de claude.ai -- esta página en GitHub Pages es ahora
+  la fuente canónica; actualízala junto con `playr/LEGAL.md` y
+  `legal_documents` en la base cada vez que se publique una versión
+  nueva (mismo contenido en los 3 lugares).
 
 Pensado para crecer con más sub-páginas de soporte web más adelante (ej.
 acceso de dueños de cancha a sus reservas desde un navegador).
