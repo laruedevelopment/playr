@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+<meta name="theme-color" content="#0E1E42" />
 <title>PlayR — Encuentra con quién jugar, o haz crecer tu cancha</title>
 <meta name="description" content="PlayR conecta jugadores de fútbol para armar partidos, equipos y torneos — y le da a cada cancha su propia vitrina digital: reservas, agenda y nuevos clientes. Muy pronto en iOS y Android." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +46,10 @@
   }
   .topbar-inner a.brand { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
   .topbar-inner a.brand img { height: 20px; width: auto; filter: brightness(0) invert(1); }
+  .topbar-inner .topbar-nav { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
   .topbar-inner .topbar-nav a { color: rgba(255,255,255,0.82); text-decoration: none; font-weight: 600; }
+  .copy a.more { display: inline-block; margin-top: 12px; font-weight: 700; color: var(--primary); text-decoration: none; }
+  .copy a.more:hover { text-decoration: underline; }
   .topbar-inner .topbar-nav a:hover { color: #fff; text-decoration: underline; }
 
   /* Hero */
@@ -278,7 +286,7 @@
   <div class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="./"><img src="assets/wordmark-mark.png" alt="PlayR" /></a>
-      <nav class="topbar-nav"><a href="legal/">Términos y Privacidad</a></nav>
+      <nav class="topbar-nav"><a href="torneos/">Guía de torneos</a><a href="legal/">Términos y Privacidad</a></nav>
     </div>
   </div>
 
@@ -393,7 +401,8 @@
           <div class="copy">
             <span class="copy-tag">Equipos y torneos</span>
             <h3>Compite en serio, no solo un picadito</h3>
-            <p>Arma tu equipo fijo, inscríbelo a un torneo de liga o eliminación directa, y sigue la tabla de posiciones partido a partido.</p>
+            <p>Arma tu equipo fijo e inscríbelo a un torneo de liga, eliminación directa o grupos + eliminación. Convocatorias, tarjetas, suspensiones, llaves, tabla y estadísticas: PlayR lleva la cuenta por ti.</p>
+            <a class="more" href="torneos/">Ver cómo funcionan los torneos →</a>
           </div>
         </div>
 
@@ -522,7 +531,7 @@
   </section>
 
   <footer>
-    PlayR · Bucaramanga, Colombia · <a href="legal/">Términos y Privacidad</a> · ¿Dudas o quieres publicar tu cancha? Escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a>
+    PlayR · Bucaramanga, Colombia · <a href="torneos/">Guía de torneos</a> · <a href="legal/">Términos y Privacidad</a> · ¿Dudas o quieres publicar tu cancha? Escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a>
   </footer>
 
 </body>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="../favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="../assets/icon-192.png" />
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
+<meta name="theme-color" content="#0E1E42" />
+<title>Torneos en PlayR — Guía paso a paso</title>
+<meta name="description" content="Cómo funcionan los torneos en PlayR: qué hace el organizador, el DT, el jugador y el árbitro, cómo avanza un campeonato de la inscripción al campeón y qué muestra cada pantalla." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F3EC; --surface:#FFFFFF; --ink:#1B1B1B; --muted:#5B5648; --line:#E6E0D2;
+  --azul:#004D95; --azul-soft:#E4EEF8; --vino:#A5004A; --vino-soft:#F7E6EE;
+  --si:#1C6B43; --si-soft:#E3F1E8; --no:#A11D2B; --no-soft:#F8E5E6;
+  --shadow:0 1px 2px rgba(20,32,46,.06),0 8px 24px rgba(20,32,46,.07);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px}
+h1,h2,h3{font-family:"Manrope",-apple-system,"Segoe UI",sans-serif;line-height:1.05;text-wrap:balance;margin:0}
+h2{font-size:clamp(26px,4.2vw,38px);font-weight:800;letter-spacing:.2px}
+h3{font-size:24px;font-weight:700}
+p{margin:0}
+.eyebrow{font:700 13px/1 "Manrope",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--vino)}
+section{padding-block:56px}
+.lead{color:var(--muted);max-width:62ch;margin-top:12px}
+
+/* HERO: un marcador */
+.hero{padding-block:40px 24px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(38px,6.4vw,68px);font-weight:800;margin-top:10px}
+.hero h1 em{font-style:normal;color:var(--azul)}
+.scoreboard{margin-top:26px;display:inline-grid;grid-template-columns:auto auto auto;align-items:center;gap:14px;background:var(--ink);color:var(--bg);border-radius:14px;padding:14px 20px;box-shadow:var(--shadow)}
+.scoreboard .t{font:700 15px/1.2 "Manrope",sans-serif;letter-spacing:.04em;text-transform:uppercase}
+.scoreboard .s{white-space:nowrap;font:800 34px/1 "Manrope",sans-serif;font-variant-numeric:tabular-nums;padding:0 6px}
+.scoreboard .pen{grid-column:1/-1;text-align:center;font-size:13px;opacity:.8;margin-top:-6px}
+.formats{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);font-weight:600;font-size:15px}
+.chip b{font-family:"Manrope",sans-serif;font-size:19px;color:var(--azul)}
+
+.phone{position:relative;border-radius:30px;padding:8px;background:#11161D;box-shadow:var(--shadow);max-width:280px;margin-inline:auto}
+.phone img{display:block;width:100%;border-radius:23px}
+.phone.sm{max-width:230px}
+
+/* ROLES */
+.roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:30px}
+.role{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px}
+.role-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.badge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--azul-soft);color:var(--azul);font:800 20px/1 "Manrope",sans-serif;flex:none}
+.role .who{color:var(--muted);font-size:15px;margin-bottom:14px}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.list li{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:15.5px;line-height:1.45}
+.mk{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font:800 13px/1 "Manrope",sans-serif;margin-top:1px}
+.si .mk{background:var(--si-soft);color:var(--si)}
+.no .mk{background:var(--no-soft);color:var(--no)}
+.list-label{font:700 12px/1 "Manrope",sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:14px 0 8px}
+.list-label.si{color:var(--si)} .list-label.no{color:var(--no)}
+
+/* PASOS */
+.steps{margin-top:34px;display:grid;gap:44px}
+.step{display:grid;grid-template-columns:72px 1fr 250px;gap:28px;align-items:start}
+.num{font:800 54px/.9 "Manrope",sans-serif;color:var(--vino);font-variant-numeric:tabular-nums}
+.step h3{margin-bottom:8px}
+.step p{color:var(--muted);max-width:60ch}
+.step p + p{margin-top:10px}
+.who-tag{display:inline-block;font:700 12px/1 "Manrope",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--azul);background:var(--azul-soft);border-radius:6px;padding:5px 8px;margin-bottom:10px}
+.auto{display:inline-flex;gap:6px;align-items:center;margin-top:12px;font-size:14.5px;font-weight:600;color:var(--si);background:var(--si-soft);border-radius:8px;padding:6px 10px}
+
+/* REGLAS */
+.rules-band{background:var(--surface);border-block:1px solid var(--line)}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:26px;margin-top:28px}
+.rule .big{font:800 38px/1 "Manrope",sans-serif;color:var(--azul);font-variant-numeric:tabular-nums}
+.rule h3{font-size:21px;margin:6px 0}
+.rule p{color:var(--muted);font-size:15.5px}
+.card-y,.card-r{display:inline-block;width:14px;height:19px;border-radius:2px;vertical-align:-3px;margin-right:2px}
+.card-y{background:#F2C500;border:1px solid #8a7000}.card-r{background:#D7263D;border:1px solid #7a1020}
+
+/* GALERÍA */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:26px;margin-top:30px}
+.shot figcaption{margin-top:12px;font-size:15px;color:var(--muted);text-align:center}
+.shot figcaption b{display:block;color:var(--ink);font-family:"Manrope",sans-serif;font-size:20px;font-weight:700}
+figure{margin:0}
+
+/* FAQ */
+.faq{margin-top:26px;display:grid;gap:10px;max-width:760px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 18px}
+summary{cursor:pointer;padding:16px 0;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font:700 22px/1 "Manrope",sans-serif;color:var(--vino)}
+details[open] summary::after{content:"–"}
+details p{padding-bottom:16px;color:var(--muted)}
+summary:focus-visible,a:focus-visible{outline:3px solid var(--azul);outline-offset:3px;border-radius:6px}
+footer{padding-block:34px 60px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+
+@media (max-width:820px){
+  .hero-grid{grid-template-columns:1fr}
+  .step{grid-template-columns:1fr;gap:12px}
+  .num{font-size:48px}
+  .step .phone{max-width:240px;margin:6px 0 0}
+}
+
+  .topbar { background: #0E1E42; color: rgba(255,255,255,0.82); }
+  .topbar-inner { max-width: 1100px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.82rem; font-weight: 600; }
+  .topbar-inner a.brand { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .topbar-inner a.brand img { height: 20px; width: auto; filter: brightness(0) invert(1); }
+  .topbar-inner .topbar-nav { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .topbar-inner .topbar-nav a { color: rgba(255,255,255,0.82); text-decoration: none; font-weight: 600; }
+  .topbar-inner .topbar-nav a:hover, .topbar-inner .topbar-nav a[aria-current] { color: #fff; text-decoration: underline; }
+  footer.page-footer a { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="../"><img src="../assets/wordmark-mark.png" alt="PlayR" /></a>
+      <nav class="topbar-nav"><a href="../">Inicio</a><a href="./" aria-current="page">Guía de torneos</a><a href="../legal/">Términos y Privacidad</a></nav>
+    </div>
+  </div>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Guía de PlayR · Torneos</p>
+      <h1>Tu torneo, <em>como en la tele</em>.</h1>
+      <p class="lead">Fixture, convocatorias, tarjetas, suspensiones, llaves, tabla y estadísticas: Playr lleva la cuenta por ti. El organizador arma el torneo, cada DT convoca a su gente, el árbitro registra lo que pasa en la cancha y todos lo ven en vivo desde el celular.</p>
+      <div class="scoreboard" aria-label="Ejemplo de marcador: Atlético Chicamocha 1, Real Morrorico 1, Real Morrorico gana 5 a 3 en penales">
+        <span class="t">Atlético<br>Chicamocha</span><span class="s">1 – 1</span><span class="t">Real<br>Morrorico</span>
+        <span class="pen">Final · Real Morrorico gana 5-3 en penales</span>
+      </div>
+      <div class="formats" aria-label="Formatos de torneo">
+        <span class="chip"><b>Liga</b> todos contra todos</span>
+        <span class="chip"><b>Eliminación</b> partido único, empate = penales</span>
+        <span class="chip"><b>Grupos + eliminación</b> pasan los 2 primeros</span>
+      </div>
+    </div>
+    <div class="phone"><img src="img/podio.jpg" alt="Pantalla de un torneo terminado: podio con campeón, subcampeón y tercer puesto, cada uno con su escudo"></div>
+  </div>
+</header>
+
+<section id="roles">
+  <div class="wrap">
+    <p class="eyebrow">Quién hace qué</p>
+    <h2>Cinco papeles, cada uno con lo suyo</h2>
+    <p class="lead">En un torneo nadie se mete donde no le toca: la app no deja. Así se evita el desorden de los grupos de WhatsApp y nadie puede alterar un resultado o una convocatoria ajena.</p>
+
+    <div class="roles">
+      <article class="role">
+        <div class="role-head"><span class="badge" aria-hidden="true">ORG</span><h3>Organizador</h3></div>
+        <p class="who">Quien crea el torneo: una liga del barrio, una cancha, una empresa.</p>
+        <p class="list-label si">Puede</p>
+        <ul class="list si">
+          <li><span class="mk" aria-hidden="true">✓</span>Crear el torneo: formato, fechas, máximo de equipos, escudo, reglamento y premios.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Hacerlo público (lo ve cualquiera) o privado (solo los inscritos).</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Aprobar o rechazar equipos y generar el fixture con un toque.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Asignar árbitros, registrar goles, tarjetas, W, penales y la figura.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Publicar comunicados en el feed y fijar los importantes.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Sancionar: restar puntos, suspender, amonestar o poner una multa.</li>
+        </ul>
+        <p class="list-label no">No puede</p>
+        <ul class="list no">
+          <li><span class="mk" aria-hidden="true">✕</span>Cambiar las reglas de puntos o tarjetas cuando el torneo ya arrancó.</li>
+          <li><span class="mk" aria-hidden="true">✕</span>Generar el fixture dos veces ni elegir al campeón a mano: sale de los resultados.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head"><span class="badge" aria-hidden="true">DT</span><h3>DT del equipo</h3></div>
+        <p class="who">El creador del equipo o quien él nombre como DT.</p>
+        <p class="list-label si">Puede</p>
+        <ul class="list si">
+          <li><span class="mk" aria-hidden="true">✓</span>Inscribir su equipo en el torneo.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Armar la convocatoria de cada partido: titulares, suplentes, dorsal y posición.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Recibir avisos de lesiones, suspensiones y sanciones de su equipo.</li>
+        </ul>
+        <p class="list-label no">No puede</p>
+        <ul class="list no">
+          <li><span class="mk" aria-hidden="true">✕</span>Convocar a un jugador suspendido o que no esté en su plantilla.</li>
+          <li><span class="mk" aria-hidden="true">✕</span>Cambiar la convocatoria cuando el partido ya empezó.</li>
+          <li><span class="mk" aria-hidden="true">✕</span>Tocar la convocatoria del rival.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head"><span class="badge" aria-hidden="true">JUG</span><h3>Jugador</h3></div>
+        <p class="who">Cualquier miembro confirmado de un equipo inscrito.</p>
+        <p class="list-label si">Puede</p>
+        <ul class="list si">
+          <li><span class="mk" aria-hidden="true">✓</span>Ver fixture, tabla, llaves, estadísticas y el feed del torneo.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Recibir el aviso "¡Estás convocado!" y los cambios de horario.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Calificar a compañeros y rivales después de cada partido.</li>
+        </ul>
+        <p class="list-label no">No puede</p>
+        <ul class="list no">
+          <li><span class="mk" aria-hidden="true">✕</span>Meterse solo a un partido de torneo: lo convoca su DT.</li>
+          <li><span class="mk" aria-hidden="true">✕</span>Registrar goles o tarjetas, ni publicar en el feed.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head"><span class="badge" aria-hidden="true">ÁRB</span><h3>Árbitro</h3></div>
+        <p class="who">Un usuario con perfil de árbitro que el organizador asigna a un partido.</p>
+        <p class="list-label si">Puede</p>
+        <ul class="list si">
+          <li><span class="mk" aria-hidden="true">✓</span>Registrar en SU partido goles, asistencias, tarjetas, lesiones y cambios.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Cerrar el partido con marcador, penales, W y figura del partido.</li>
+        </ul>
+        <p class="list-label no">No puede</p>
+        <ul class="list no">
+          <li><span class="mk" aria-hidden="true">✕</span>Cambiar la fecha, la cancha ni otros datos del partido.</li>
+          <li><span class="mk" aria-hidden="true">✕</span>Registrar nada en partidos que no le asignaron.</li>
+        </ul>
+      </article>
+
+      <article class="role">
+        <div class="role-head"><span class="badge" aria-hidden="true">HIN</span><h3>Hinchada</h3></div>
+        <p class="who">Cualquier usuario de Playr que no juega el torneo.</p>
+        <p class="list-label si">Puede</p>
+        <ul class="list si">
+          <li><span class="mk" aria-hidden="true">✓</span>Seguir los torneos públicos: resultados, tabla, llaves, estadísticas y feed.</li>
+          <li><span class="mk" aria-hidden="true">✓</span>Compartir el torneo con un enlace.</li>
+        </ul>
+        <p class="list-label no">No puede</p>
+        <ul class="list no">
+          <li><span class="mk" aria-hidden="true">✕</span>Ver un torneo privado.</li>
+          <li><span class="mk" aria-hidden="true">✕</span>Modificar nada del torneo.</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="pasos" style="padding-top:8px">
+  <div class="wrap">
+    <p class="eyebrow">De la inscripción al campeón</p>
+    <h2>Cómo funciona, paso a paso</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="num">1</span>
+        <div>
+          <span class="who-tag">Organizador</span>
+          <h3>Crea el torneo</h3>
+          <p>Elige el formato (liga, eliminación directa o grupos + eliminación), la ciudad, las fechas y el máximo de equipos. Define las reglas: puntos por partido, cuántas amarillas suspenden, cuántas fechas cuesta una roja, el marcador de un W y si se juega partido por el tercer puesto. Sube el escudo, escribe el reglamento y agrega los premios.</p>
+          <p>Al lado aparece en "Torneos", con su escudo y su estado.</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/lista.jpg" alt="Lista de torneos con escudo, nombre, estado y formato de cada uno"></div>
+      </div>
+
+      <div class="step">
+        <span class="num">2</span>
+        <div>
+          <span class="who-tag">DT → Organizador</span>
+          <h3>Los equipos se inscriben y el organizador aprueba</h3>
+          <p>Cada DT inscribe su equipo desde el torneo. El organizador acepta o rechaza cada solicitud. El orden en que aprueba define los cruces de la primera ronda en eliminación directa.</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/equipo.jpg" alt="Página de un equipo con escudo, descripción y plantilla con el capitán marcado"></div>
+      </div>
+
+      <div class="step">
+        <span class="num">3</span>
+        <div>
+          <span class="who-tag">Organizador</span>
+          <h3>Un toque y sale el fixture</h3>
+          <p>El organizador indica la primera fecha, cada cuántos días se juega, la hora y la cancha. Playr arma todos los partidos: todos contra todos en liga y en grupos, y los cruces en eliminación. Si en eliminación los equipos no son potencia de 2, los mejores pasan directo.</p>
+          <p class="auto">⚙ Automático: aviso a todos los equipos y publicación en el feed.</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/partidos.jpg" alt="Pestaña Partidos con la fecha 1: cuatro partidos con marcador, estado Final, fecha y cancha"></div>
+      </div>
+
+      <div class="step">
+        <span class="num">4</span>
+        <div>
+          <span class="who-tag">DT</span>
+          <h3>El DT arma la convocatoria</h3>
+          <p>Antes de cada partido, el DT elige quiénes juegan: titulares, suplentes, dorsal y posición. A cada convocado le llega "¡Estás convocado!". Si falta un día y todavía no hay convocatoria, Playr se lo recuerda al DT.</p>
+          <p>Un jugador suspendido no aparece para convocar: la app lo bloquea.</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/convocatorias.jpg" alt="Convocatorias de los dos equipos con titulares y suplentes, dorsal y posición de cada jugador"></div>
+      </div>
+
+      <div class="step">
+        <span class="num">5</span>
+        <div>
+          <span class="who-tag">Árbitro u organizador</span>
+          <h3>Se juega y se registra minuto a minuto</h3>
+          <p>Desde que arranca el partido, el árbitro registra goles con asistencia, goles de penal, autogoles, amarillas, rojas, lesiones y cambios. Todo aparece en vivo para los dos equipos. Una segunda amarilla se convierte sola en roja.</p>
+          <p>Si un equipo no llega, se registra el W y el rival gana 3-0 (o el marcador que diga el reglamento).</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/minuto.jpg" alt="Línea de tiempo del partido con goles, asistencias, amarillas y cambios, cada uno con su minuto"></div>
+      </div>
+
+      <div class="step">
+        <span class="num">6</span>
+        <div>
+          <span class="who-tag">Árbitro u organizador</span>
+          <h3>Marcador final y figura del partido</h3>
+          <p>Al terminar, el árbitro confirma el marcador, los penales si hubo empate en eliminación, y elige la figura. Los jugadores se califican entre ellos.</p>
+          <p class="auto">⚙ Automático: tabla, estadísticas y suspensiones se actualizan solas.</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/partido.jpg" alt="Detalle del partido: marcador 6-0 con escudos, árbitro asignado y figura del partido"></div>
+      </div>
+
+      <div class="step">
+        <span class="num">7</span>
+        <div>
+          <span class="who-tag">Automático</span>
+          <h3>Las llaves avanzan solas</h3>
+          <p>Cuando termina una ronda, Playr crea la siguiente con los ganadores, por marcador, penales o W, y avisa a los equipos que siguen vivos. En grupos + eliminación, al cerrar los grupos se cruzan 1.º A contra 2.º B y 1.º B contra 2.º A.</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/llaves.jpg" alt="Árbol de eliminación: cuartos de final con marcadores y penales, y el avance a semifinal"></div>
+      </div>
+
+      <div class="step">
+        <span class="num">8</span>
+        <div>
+          <span class="who-tag">Automático</span>
+          <h3>Campeón, podio y premios</h3>
+          <p>Con el último partido, el torneo se cierra solo. Aparecen el campeón, el subcampeón y el tercero (si el torneo lo define), cada premio con su ganador y los premios individuales: goleador, asistidor, figura, valla menos vencida, juego limpio, mejor ataque y mejor defensa.</p>
+          <p class="auto">⚙ Automático: aviso a todos y "¡Es campeón!" en el feed.</p>
+        </div>
+        <div class="phone sm"><img loading="lazy" src="img/premios_ind.jpg" alt="Premios individuales del torneo: goleador, máximo asistidor, figura, valla menos vencida, juego limpio, mejor ataque y mejor defensa"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rules-band" id="reglas">
+  <div class="wrap">
+    <p class="eyebrow">Lo que Playr aplica sola</p>
+    <h2>Reglas que no hay que llevar en el cuaderno</h2>
+    <div class="rules">
+      <div class="rule">
+        <div class="big"><span class="card-y" aria-hidden="true"></span><span class="card-y" aria-hidden="true"></span><span class="card-y" aria-hidden="true"></span> 3</div>
+        <h3>Amarillas acumuladas</h3>
+        <p>Al llegar a 3 amarillas en el torneo, el jugador se pierde la siguiente fecha. El organizador puede cambiar ese número antes de empezar.</p>
+      </div>
+      <div class="rule">
+        <div class="big"><span class="card-r" aria-hidden="true"></span> 1</div>
+        <h3>Roja o doble amarilla</h3>
+        <p>La roja cuesta una fecha (o las que diga el reglamento). La suspensión se cumple sola cuando su equipo juega.</p>
+      </div>
+      <div class="rule">
+        <div class="big">W 3-0</div>
+        <h3>No se presentó</h3>
+        <p>El equipo que no llega pierde por W. Los goles del W no cuentan para los goleadores.</p>
+      </div>
+      <div class="rule">
+        <div class="big">3 · 1 · 0</div>
+        <h3>Puntos y desempates</h3>
+        <p>Victoria, empate y derrota. Si hay empate en puntos, se ordena por diferencia de gol y luego por goles a favor. Las sanciones restan puntos y se marcan con un asterisco.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pantallas">
+  <div class="wrap">
+    <p class="eyebrow">Qué ves en cada pestaña</p>
+    <h2>Todo el torneo en el bolsillo</h2>
+    <div class="gallery">
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/tabla.jpg" alt="Tabla de posiciones con puntos, partidos jugados, ganados, empatados y perdidos"></div><figcaption><b>Tabla</b>Puntos primero; el asterisco marca una sanción.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/grupos.jpg" alt="Tabla de dos grupos con los clasificados marcados y el árbol de eliminación debajo"></div><figcaption><b>Grupos y llaves</b>"▲ Clasifica" junto a los que pasan.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/final.jpg" alt="Final del torneo en el árbol de eliminación, decidida por penales"></div><figcaption><b>La final</b>Ganador marcado y penales entre paréntesis.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/goleadores.jpg" alt="Tabla de goleadores del torneo"></div><figcaption><b>Goleadores y asistencias</b>Con los goles de penal aparte.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/suspendidos.jpg" alt="Lista de jugadores suspendidos con el motivo y las fechas cumplidas"></div><figcaption><b>Suspendidos</b>Motivo y fechas cumplidas de cada uno.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/vallas.jpg" alt="Vallas invictas de los porteros y resumen por equipo con juego limpio"></div><figcaption><b>Vallas y equipos</b>Porteros invictos y juego limpio.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/feed.jpg" alt="Feed del torneo con comunicados del organizador y avisos automáticos de sanciones y del campeón"></div><figcaption><b>Novedades</b>Comunicados y avisos automáticos.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/premios.jpg" alt="Premios del torneo con el equipo ganador de cada puesto"></div><figcaption><b>Premios</b>Se asignan solos al terminar.</figcaption></figure>
+      <figure class="shot"><div class="phone sm"><img loading="lazy" src="img/avisos.jpg" alt="Notificaciones de un jugador: campeón, nueva ronda, resultado, calificaciones y convocatoria"></div><figcaption><b>Avisos al celular</b>Convocatoria, resultados, rondas y campeón.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="preguntas" style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow">Preguntas frecuentes</p>
+    <h2>Lo que más preguntan</h2>
+    <div class="faq">
+      <details><summary>¿Un jugador puede unirse solo a un partido del torneo?</summary><p>No. En los torneos los equipos son cerrados: solo juega quien el DT convoca, y solo puede convocar a jugadores confirmados de su plantilla.</p></details>
+      <details><summary>¿Qué pasa si convoco a alguien suspendido?</summary><p>La app no lo deja: muestra "Este jugador está suspendido para este partido". Cuando su equipo juega, la suspensión se da por cumplida sola.</p></details>
+      <details><summary>¿Quién puede cambiar un resultado?</summary><p>Solo el organizador del torneo o el árbitro asignado a ese partido. Si se corrige un marcador, la tabla, las llaves y las estadísticas se recalculan solas.</p></details>
+      <details><summary>¿Se puede cambiar el reglamento a mitad del torneo?</summary><p>El texto del reglamento, el escudo y si es público o privado se pueden cambiar siempre. Los puntos por partido, las reglas de tarjetas y el marcador del W quedan fijos cuando el torneo arranca, para que nadie cambie las reglas en medio del juego.</p></details>
+      <details><summary>¿Cómo se definen las llaves de eliminación?</summary><p>En eliminación directa, por el orden en que el organizador aprobó a los equipos (el primero contra el último, y así). En grupos + eliminación, con los dos primeros de cada grupo cruzados: 1.º A contra 2.º B y 1.º B contra 2.º A.</p></details>
+      <details><summary>¿Hay partido por el tercer puesto?</summary><p>Es opcional. El organizador lo activa en los ajustes del torneo (solo en eliminación directa y en grupos + eliminación). Si está activo, apenas se definen las semifinales PlayR programa solo el partido entre los dos perdedores, antes de la final, y el ganador queda tercero en el podio.</p></details>
+      <details><summary>¿Y si hay empate en eliminación?</summary><p>Se define por penales. El árbitro registra la tanda y el ganador pasa a la siguiente ronda.</p></details>
+      <details><summary>¿Cómo se calcula la "Figura del torneo" y el "Mejor calificado"?</summary><p>La figura del torneo es quien más veces fue elegido figura del partido por el árbitro. El mejor calificado sale del promedio de las calificaciones que le dieron compañeros y rivales (se necesitan al menos 2).</p></details>
+    </div>
+  </div>
+</section>
+
+
+<footer class="page-footer">
+  <div class="wrap">Las pantallas son de un campeonato de ejemplo con equipos ficticios (Atlético Chicamocha, Real Morrorico, Unión Lebrija…). PlayR · Bucaramanga, Colombia · <a href="../">Inicio</a> · <a href="../legal/">Términos y Privacidad</a> · ¿Dudas? Escríbenos a <a href="mailto:laruedeveloper@gmail.com">laruedeveloper@gmail.com</a></div>
+</footer>
+
+</body>
+</html>
