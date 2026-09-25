@@ -19,3 +19,11 @@ Supabase igual que la app móvil).
 
 Pensado para crecer con más sub-páginas de soporte web más adelante (ej.
 acceso de dueños de cancha a sus reservas desde un navegador).
+
+## /panel/ — Panel web para negocios y administradores
+
+`panel/` es la app de Playr compilada para navegador (Expo web), solo para
+administradores y dueños de cancha; una cuenta de jugador ve un aviso y no
+entra. **No se edita a mano:** se regenera desde el repo de la app con
+`bash scripts/build-web-panel.sh` (ver `web/README.md` allá) y después se hace
+commit + push aquí. Apunta siempre a la base de producción.
