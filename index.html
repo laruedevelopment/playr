@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Content Security Policy (revisión de seguridad, 2026-09-24). GitHub Pages no permite mandar encabezados HTTP propios -- va por <meta>, con la limitación de que 'frame-ancestors' NO tiene efecto por esta vía (solo funciona como encabezado HTTP real; los navegadores lo ignoran aquí, así que esta página no queda protegida contra que otro sitio la enmarque en un iframe). Esta página no tiene ningún <script> propio: se bloquea toda ejecución de JS (script-src implícito en default-src 'none'). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://bfgunqehpbkvjdwsfxfa.supabase.co; base-uri 'none'; form-action 'self'; object-src 'none'" />
 <link rel="icon" href="favicon.ico" sizes="any" />
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png" />
