@@ -101,20 +101,56 @@
       var PLAY_URL = 'https://play.google.com/store/apps/details?id=com.laruedev.playr';
       var isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
       var isAndroid = /Android/.test(ua);
-      if (isIOS) {
-        window.location.replace(APPLE_URL);
-      } else if (isAndroid) {
-        window.location.replace(PLAY_URL);
-      } else {
+
+      // Contenido puntual (2026-09-29, pedido explícito del dueño del
+      // producto): "compartir mi perfil", "invitar a un partido" y
+      // "compartir torneo" ya no mandan un link playr:// suelto (que en
+      // WhatsApp/redes llega como texto plano, sin poder tocarlo, Y de nada
+      // sirve para quien no tiene la app instalada todavía -- ver el
+      // comentario que dejó quien lo construyó en StatsShareCard.tsx). Ahora
+      // mandan ESTE link (https, sí es tocable) con ?to=&id=, que intenta
+      // abrir la app en el contenido exacto y si no puede -- no está
+      // instalada -- cae a la tienda que corresponda.
+      var params = new URLSearchParams(window.location.search);
+      var to = params.get('to');
+      var id = params.get('id');
+      var deepLink = null;
+      if (to === 'game' && id) deepLink = 'playr://game/' + encodeURIComponent(id);
+      else if (to === 'user' && id) deepLink = 'playr://user/' + encodeURIComponent(id);
+      else if (to === 'tournament' && id) deepLink = 'playr://tournament/' + encodeURIComponent(id);
+
+      function showFallback() {
         document.getElementById('fallback').className = 'badges fallback show';
       }
-      // Respaldo: si por lo que sea el redirect de arriba no se disparó
-      // (navegador raro, o el usuario canceló la navegación), a los 2.5 s se
-      // muestran igual las dos opciones en vez de dejar el spinner girando
-      // para siempre.
-      setTimeout(function () {
-        document.getElementById('fallback').className = 'badges fallback show';
-      }, 2500);
+      function goToStore() {
+        if (isIOS) window.location.replace(APPLE_URL);
+        else if (isAndroid) window.location.replace(PLAY_URL);
+        else showFallback();
+      }
+
+      if ((isIOS || isAndroid)) {
+        // Se intenta abrir la app (con el contenido puntual si lo hay, o
+        // sola si es un link genérico de "descárgala"/"invita a un amigo").
+        // No hay forma 100% confiable de saber si el intento funcionó --
+        // por eso, si la pestaña sigue visible pasado el tiempo de espera,
+        // se asume que la app no está instalada y se manda a la tienda. Si
+        // SÍ estaba instalada, la app ya se abrió antes de que esto corra
+        // (la pestaña quedó en segundo plano, este redirect ya no importa).
+        window.location.href = deepLink || 'playr://';
+        var appOpened = false;
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) appOpened = true;
+        });
+        setTimeout(function () {
+          if (!appOpened) goToStore();
+        }, 1500);
+      } else {
+        showFallback();
+      }
+      // Respaldo final: si por lo que sea nada de lo de arriba disparó nada
+      // (navegador raro), a los 3 s se muestran igual las dos opciones en
+      // vez de dejar el spinner girando para siempre.
+      setTimeout(showFallback, 3000);
     })();
   </script>
 </body>
