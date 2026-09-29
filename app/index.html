@@ -147,9 +147,9 @@
         var androidIntentUrl = 'intent://' + path + '#Intent;scheme=playr;package=com.laruedev.playr;S.browser_fallback_url='
           + encodeURIComponent(PLAY_URL) + ';end';
         document.getElementById('debug').textContent += ' | ' + androidIntentUrl;
-        setTimeout(function () { window.location.href = androidIntentUrl; }, 2000);
+        setTimeout(function () { window.location.href = androidIntentUrl; }, 12000);
         // Aun así, un respaldo final por si el navegador no soporta intent://.
-        setTimeout(showFallback, 4500);
+        setTimeout(showFallback, 14500);
       } else if (isIOS) {
         // En iOS no existe intent:// -- se intenta el esquema propio directo.
         // Sin forma confiable de saber si abrió: si la pestaña sigue visible
