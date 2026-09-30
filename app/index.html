@@ -115,8 +115,9 @@
       var to = params.get('to');
       var id = params.get('id');
       // "host/path" tal como los espera el linking de la app (playr://user/:id,
-      // playr://game/:gameId, playr://tournament/:tournamentId -- ver App.tsx).
-      var path = (to === 'game' || to === 'user' || to === 'tournament') && id
+      // playr://game/:gameId, playr://tournament/:tournamentId,
+      // playr://group/:groupId -- ver App.tsx).
+      var path = (to === 'game' || to === 'user' || to === 'tournament' || to === 'group') && id
         ? to + '/' + encodeURIComponent(id)
         : '';
 
