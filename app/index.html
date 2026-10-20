@@ -8,16 +8,18 @@
      redirigir -- por eso script-src no es 'none' acá). No hay ningún script
      de terceros ni formulario, así que el resto queda tan cerrado como el
      resto del sitio. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src https://bfgunqehpbkvjdwsfxfa.supabase.co; base-uri 'none'; form-action 'none'; object-src 'none'" />
+<link rel="preload" href="../assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin />
+<style>
+/* Manrope alojada en este sitio (licencia OFL): así la visita no le envía su IP a Google. */
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 800;font-display:swap;src:url('../assets/fonts/manrope-latin-ext.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 800;font-display:swap;src:url('../assets/fonts/manrope-latin.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+</style>
 <link rel="icon" href="../favicon.ico" sizes="any" />
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png" />
 <meta name="theme-color" content="#0E1E42" />
 <title>Descargar PlayR</title>
 <meta name="description" content="Un solo enlace para descargar PlayR: te lleva directo a la App Store o a Google Play según tu celular." />
 <meta name="robots" content="noindex" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --primary: #004D95;
