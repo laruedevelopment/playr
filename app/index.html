@@ -68,6 +68,12 @@
   /* Antes de que el script decida, no se sabe si hace falta el respaldo
      manual -- se muestra oculto y solo aparece si el redirect automático no
      ocurrió (JS bloqueado, o un navegador de escritorio que no aplica). */
+  /* Tarjeta con los datos públicos del partido (solo si el enlace es de un partido público). */
+  .gamecard { display: none; margin: 0 auto 22px; max-width: 340px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 16px; padding: 16px; text-align: left; }
+  .gamecard.show { display: block; }
+  .gamecard h2 { font-size: 18px; margin: 0 0 4px; text-wrap: balance; }
+  .gamecard .meta { font-size: 14px; color: rgba(255,255,255,0.9); margin: 3px 0; line-height: 1.4; }
+  .gamecard .spots { display: inline-block; margin-top: 10px; background: #fff; color: var(--primary-dark); font-weight: 800; font-size: 13px; padding: 4px 12px; border-radius: 999px; }
   .fallback { display: none; }
   .fallback.show { display: flex; }
 </style>
@@ -75,6 +81,13 @@
 <body>
   <div class="card">
     <img class="logo" src="https://bfgunqehpbkvjdwsfxfa.supabase.co/storage/v1/object/public/app-assets/wordmark-mark-white.png" alt="PlayR" />
+    <div class="gamecard" id="gamecard" aria-live="polite">
+      <h2 id="gc-title"></h2>
+      <div class="meta" id="gc-when"></div>
+      <div class="meta" id="gc-where"></div>
+      <div class="meta" id="gc-price"></div>
+      <span class="spots" id="gc-spots"></span>
+    </div>
     <div class="spinner" role="status" aria-label="Redirigiendo"></div>
     <h1>Te estamos llevando a tu tienda de apps…</h1>
     <p class="sub">Si no pasa nada en unos segundos, elige tu opción abajo.</p>
@@ -122,6 +135,28 @@
       var path = (to === 'game' || to === 'user' || to === 'tournament' || to === 'group') && id
         ? to + '/' + encodeURIComponent(id)
         : '';
+
+
+      // Si el enlace es de un partido PÚBLICO, se muestran sus datos mínimos (nombre, fecha, lugar, precio y cupos; nunca el
+      // organizador ni los jugadores). Es un extra: si falla o el partido no es público, la página se comporta como siempre.
+      if (to === 'game' && id && /^[0-9a-fA-F-]{36}$/.test(id)) {
+        fetch('https://bfgunqehpbkvjdwsfxfa.supabase.co/rest/v1/rpc/get_public_game', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJmZ3VucWVocGJrdmpkd3NmeGZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NDU3MDUsImV4cCI6MjA5NjAyMTcwNX0.74Vl1HbjulRFA70rFuz0nB9r1QIEX9QQGH3XO3AtTF0' },
+          body: JSON.stringify({ p_id: id })
+        }).then(function (r) { return r.ok ? r.json() : null; }).then(function (g) {
+          if (!g || !g.title) return;
+          var when = new Date(g.scheduled_at);
+          var fecha = when.toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'America/Bogota' });
+          var hora = when.toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Bogota' });
+          document.getElementById('gc-title').textContent = g.title;
+          document.getElementById('gc-when').textContent = '📅 ' + fecha + ' · ' + hora;
+          document.getElementById('gc-where').textContent = '📍 ' + [g.location_name, g.city].filter(Boolean).join(' · ');
+          document.getElementById('gc-price').textContent = '💵 ' + (g.price_per_player > 0 ? '$' + Number(g.price_per_player).toLocaleString('es-CO') + ' por persona' : 'Gratis') + (g.modality ? ' · ' + g.modality : '');
+          document.getElementById('gc-spots').textContent = g.spots_left > 0 ? (g.spots_left === 1 ? 'Falta 1 jugador' : 'Faltan ' + g.spots_left + ' jugadores') : 'Partido completo';
+          document.getElementById('gamecard').className = 'gamecard show';
+        }).catch(function () {});
+      }
 
       function showFallback() {
         document.getElementById('fallback').className = 'badges fallback show';
